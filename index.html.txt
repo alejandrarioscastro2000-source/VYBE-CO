@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VYBE CO | Moda que vibra contigo</title>
+
+<style>
+:root {
+    --negro: #000;
+    --rosado: #f2c6cc;
+    --nude: #f5e6d8;
+    --plomo: #b5b5b5;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: var(--negro);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    padding: 50px 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.hero {
+    background: linear-gradient(var(--nude), white);
+    text-align: center;
+}
+
+.btn {
+    background: var(--negro);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: var(--rosado);
+    color: black;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.product {
+    border: 1px solid var(--plomo);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.cart {
+    background: #fafafa;
+    border: 2px solid var(--plomo);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: var(--negro);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>VYBE CO</h2>
+    <p>Moda que vibra contigo</p>
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#tienda">Tienda</a>
+        <a href="#carrito">Carrito</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section id="inicio" class="hero">
+    <h1>Moda juvenil femenina que vibra contigo</h1>
+    <p>Prendas modernas para chicas con actitud</p>
+</section>
+
+<section id="tienda">
+    <h2>Tienda</h2>
+    <div class="products">
+
+        <div class="product">
+            <h3>Vestido Urban Vibe</h3>
+            <p>Bs. 180</p>
+            <button class="btn" onclick="addToCart('Vestido Urban Vibe',180)">Agregar</button>
+        </div>
+
+        <div class="product">
+            <h3>Top Nude Basic</h3>
+            <p>Bs. 90</p>
+            <button class="btn" onclick="addToCart('Top Nude Basic',90)">Agregar</button>
+        </div>
+
+        <div class="product">
+            <h3>Conjunto Pink Mood</h3>
+            <p>Bs. 220</p>
+            <button class="btn" onclick="addToCart('Conjunto Pink Mood',220)">Agregar</button>
+        </div>
+
+    </div>
+</section>
+
+<section id="carrito">
+    <h2>Carrito de compras</h2>
+    <div class="cart" id="cart"></div>
+    <h3>Total: Bs. <span id="total">0</span></h3>
+    <button class="btn" onclick="checkout()">Finalizar compra por WhatsApp</button>
+</section>
+
+<section id="contacto">
+    <h2>Contacto</h2>
+    <p>📲 WhatsApp: 76766949</p>
+    <p>📍 Cochabamba – Bolivia</p>
+</section>
+
+<footer>
+    <p>©️ 2026 VYBE CO</p>
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    total += price;
+    renderCart();
+}
+
+function renderCart() {
+    const cartDiv = document.getElementById('cart');
+    cartDiv.innerHTML = '';
+    cart.forEach((item, index) => {
+        cartDiv.innerHTML += `
+        <div class="cart-item">
+            <span>${item.name}</span>
+            <span>Bs. ${item.price}</span>
+        </div>`;
+    });
+    document.getElementById('total').innerText = total;
+}
+
+function checkout() {
+    let message = "Hola VYBE CO, quiero comprar:%0A";
+    cart.forEach(item => {
+        message += "- " + item.name + " Bs." + item.price + "%0A";
+    });
+    message += "Total: Bs. " + total;
+    window.open("https://wa.me/59176766949?text=" + message, "_blank");
+}
+</script>
+
+</body>
+</html>
